@@ -7,8 +7,10 @@ require_once 'path_to/PHPMailer/src/Exception.php';
 require_once 'path_to/PHPMailer/src/PHPMailer.php';
 require_once 'path_to/PHPMailer/src/SMTP.php';
 
-class NotificationService extends Dbh {
-    public function sendExpirationNotifications() {
+class NotificationService extends Dbh
+{
+    public function sendExpirationNotifications()
+    {
         try {
             // Define the notification window (e.g., 7 days before expiration)
             $currentDate = date('Y-m-d H:i:s');
@@ -28,7 +30,6 @@ class NotificationService extends Dbh {
                 $this->sendEmailNotification($user['user_email'], $user['expire_at']);
                 $this->logNotification($user['id']);
             }
-
         } catch (PDOException $e) {
             error_log("Database Error: " . $e->getMessage(), 3, "../logs/db_errors.log");
         } catch (Exception $e) {
@@ -36,7 +37,8 @@ class NotificationService extends Dbh {
         }
     }
 
-    private function sendEmailNotification($email, $expireAt) {
+    private function sendEmailNotification($email, $expireAt)
+    {
         $mail = new PHPMailer(true);
 
         try {
@@ -66,7 +68,8 @@ class NotificationService extends Dbh {
         }
     }
 
-    private function logNotification($userId) {
+    private function logNotification($userId)
+    {
         try {
             $sql = "INSERT INTO user_logs (user_id, action) VALUES (:user_id, 'notified')";
             $stmt = $this->connect()->prepare($sql);
@@ -80,4 +83,3 @@ class NotificationService extends Dbh {
 // To run the notification service
 $notificationService = new NotificationService();
 $notificationService->sendExpirationNotifications();
-?>

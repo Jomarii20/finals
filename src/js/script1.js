@@ -1,27 +1,25 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
     // Popups
     const showLoginBtn = document.querySelector("#show-login");
     const showSignupBtn = document.querySelector("#show-signup");
     const loginPopup = document.querySelector(".popup.login-popup");
     const signupPopup = document.querySelector(".popup.signup-popup");
+    const programPopup = document.querySelector(".popup.program-popup");
     const closeBtns = document.querySelectorAll(".popup .close-btn");
     const buyButtons = document.querySelectorAll('.subscription form button');
+    const programButtons = document.querySelectorAll('.view-btn');
+    const programTypeInput = document.getElementById('program-type');
 
     // Sidebar
     const sidebar = document.querySelector('.sidebar');
     const menuButton = document.querySelector('.menu-button');
     const closeButton = document.querySelector('.sidebar-close-btn');
 
-    // Form popup
-    const openFormBtn = document.querySelector("#openFormBtn");
-    const formPopup = document.querySelector("#formPopup");
-    const formCloseBtn = document.querySelector(".popup-form .close-btn");
-
     // Function to close all popups
     function closeAllPopups() {
         loginPopup?.classList.remove("active");
         signupPopup?.classList.remove("active");
-        formPopup?.classList.remove("active");
+        programPopup?.classList.remove("active");
     }
 
     // Function to close sidebar
@@ -61,6 +59,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+   // Program buttons event listeners (updated)
+programButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        // Optional: If you want to store program type or other data, you can pass it here
+        const programType = this.dataset.program;
+        programTypeInput.value = programType; // Set the program type if needed
+
+        // Open the signup popup just like the other buttons
+        togglePopup(signupPopup);
+    });
+});
+
+
     // Popup close buttons
     closeBtns.forEach((btn) => {
         btn.addEventListener("click", function() {
@@ -69,31 +80,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Form popup events
-    openFormBtn?.addEventListener("click", (e) => {
-        e.preventDefault();
-        formPopup?.classList.add("active");
-    });
-
-    formCloseBtn?.addEventListener("click", () => {
-        formPopup?.classList.remove("active");
-    });
-
     // Close popups and sidebar when clicking outside
     document.addEventListener("click", function(event) {
         const target = event.target;
         const isPopupClick = target.closest(".popup");
         const isLoginClick = target.matches("#show-login");
         const isSignupClick = target.matches("#show-signup");
+        const isProgramClick = target.closest('.view-btn');
         const isBuyButtonClick = target.closest('.subscription form button');
-        const isFormPopupClick = target.closest("#formPopup");
-        const isOpenFormClick = target.matches("#openFormBtn");
-        const isMenuButtonClick = target.closest('.menu-button');
         const isSidebarClick = target.closest('.sidebar');
+        const isMenuButtonClick = target.closest('.menu-button');
 
         // Close popups if clicking outside
-        if (!isPopupClick && !isLoginClick && !isSignupClick && 
-            !isBuyButtonClick && !isFormPopupClick && !isOpenFormClick) {
+        if (!isPopupClick && !isLoginClick && !isSignupClick && !isProgramClick && !isBuyButtonClick) {
             closeAllPopups();
         }
 

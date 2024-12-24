@@ -1,9 +1,11 @@
 <?php
 require_once __DIR__ . '/dbh.php'; // Adjust the path to your Dbh class file
 
-class AdminActions extends Dbh {
+class AdminActions extends Dbh
+{
     // Check if user is already processed
-    private function isUserProcessed($userId) {
+    private function isUserProcessed($userId)
+    {
         $sql = "SELECT status FROM users WHERE id = :user_id";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute(['user_id' => $userId]);
@@ -16,7 +18,8 @@ class AdminActions extends Dbh {
         return in_array($user['status'], ['accepted', 'rejected']);
     }
 
-    public function acceptUser($userId) {
+    public function acceptUser($userId)
+    {
         if ($this->isUserProcessed($userId)) {
             header("Location: admin-dashboard-class.php?error=already_processed");
             exit();
@@ -47,7 +50,8 @@ class AdminActions extends Dbh {
         }
     }
 
-    public function rejectUser($userId) {
+    public function rejectUser($userId)
+    {
         if ($this->isUserProcessed($userId)) {
             header("Location: admin-dashboard-class.php?error=already_processed");
             exit();

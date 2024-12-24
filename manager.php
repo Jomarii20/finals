@@ -146,32 +146,26 @@ $users = $bookingManager->getUsers();
 </head>
 
 <body>
-    <header>
-        <nav>
+<header>
+    <nav>
+        <div class="nav-container">
             <div class="logo-container">
-                <img src="src/css/images/logo.png" alt="logo" class="logo">
-                <span class="logo-name">Iron Forge Gym</span>
+                <img src="./src//css/images/logo.png" alt="Logo" class="logo">
+                <span class="logo-name">IRON FORGE GYM</span>
             </div>
-            <div class="nav-container">
-                <ul class="nav-links">
-                    <li><a href="../index.php">Home</a></li>
-                    <li><a href="../index.php#program">Program</a></li>
-                    <li><a href="../index.php#subscription">Subscription</a></li>
-                    <li><a href="../index.php#booking">Booking</a></li>
-                    <li><a href="../index.php#about-us">About Us</a></li>
-                </ul>
+            <div class="nav-buttons">
+                <a href="#dashboard">Dashboard</a>
+                <a href="../index.php">Log Out</a>
             </div>
-            <div class="dropdown">
-                <span>Manager</span>
-                <div class="dropdown-menu">
-                    <a href="#">Dashboard</a>
-                    <a href="index.php">Logout</a>
-                </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
-    <h1>Manager Dashboard</h1>
+<h1 class="dashboard-title">MANAGER DASHBOARD</h1>
+
 
     <main>
         <!-- Display success or error messages -->
@@ -182,7 +176,7 @@ $users = $bookingManager->getUsers();
         <?php endif; ?>
 
         <h2>Bookings List</h2>
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -217,7 +211,7 @@ $users = $bookingManager->getUsers();
         </table>
 
         <h2>Member List</h2>
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -257,6 +251,16 @@ $users = $bookingManager->getUsers();
             </tbody>
         </table>
     </main>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navContainer = document.querySelector('.nav-container');
+
+        hamburger.addEventListener('click', () => {
+            navContainer.classList.toggle('active');
+        });
+    </script>
 </body>
 
 </html>
