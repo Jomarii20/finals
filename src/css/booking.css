@@ -100,26 +100,26 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .booking_section {
-        flex-direction: column; 
+        flex-direction: column; /* Stack elements vertically */
         height: auto;
         gap: 20px;
     }
 
     .booking_top {
-        padding: 30px 15px; 
+        padding: 30px 15px; /* Adjusted padding for small screens */
     }
 
     .booking_top p {
-        font-size: 0.9rem; 
-        width: 100%;
+        font-size: 0.9rem; /* Slightly smaller text */
+        width: 100%; /* Full width for mobile */
     }
 
     .booking_form {
-        padding: 20px 15px; 
+        padding: 20px 15px; /* Reduced padding */
     }
 
     .booking-group {
-        width: 100%; 
+        width: 100%; /* Full width for mobile */
     }
 }
 
@@ -129,18 +129,18 @@
     }
 
     .booking_top h1 {
-        font-size: 1.5rem; 
+        font-size: 1.5rem; /* Adjust heading size */
     }
 
     .booking_top p {
-        font-size: 0.8rem;
+        font-size: 0.8rem; /* Smaller text for mobile */
     }
 
     .booking_form {
-        padding: 15px 10px;
+        padding: 15px 10px; /* Compact padding */
     }
 
     .booking-group button {
-        font-size: 0.9rem; 
+        font-size: 0.9rem; /* Smaller button text */
     }
 }

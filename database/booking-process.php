@@ -1,12 +1,14 @@
 <?php
 require_once __DIR__ . '/dbh.php';
 
-class BookingProcess extends Dbh {
+class BookingProcess extends Dbh
+{
     // Method to insert a new booking
-    protected function setBooking($name, $phone, $email, $date) {
+    protected function setBooking($name, $phone, $email, $date)
+    {
         $stmt = $this->connect()->prepare(
             'INSERT INTO bookings (name, phone, email, booking_date) 
-             VALUES (?, ?, ?, ?)'
+            VALUES (?, ?, ?, ?)'
         );
 
         // Execute the statement with all required parameters
@@ -20,7 +22,8 @@ class BookingProcess extends Dbh {
     }
 
     // Method to check if a booking already exists
-    protected function checkBooking($email, $date) {
+    protected function checkBooking($email, $date)
+    {
         $stmt = $this->connect()->prepare(
             'SELECT * FROM bookings WHERE email = ? AND booking_date = ?'
         );

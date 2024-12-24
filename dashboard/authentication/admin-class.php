@@ -3,14 +3,15 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once __DIR__. '/../../vendor/autoload.php'; // PHPMailer autoload
-require_once __DIR__. '/../../database/signUp.query.php';
+require_once __DIR__ . '/../../vendor/autoload.php'; // PHPMailer autoload
+require_once __DIR__ . '/../../database/signUp.query.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-class Admin extends signUp {
+class Admin extends signUp
+{
     private $email;
     private $uid;
     private $type;
@@ -18,9 +19,10 @@ class Admin extends signUp {
     private $month;
     private $monthLimit = 12; // Define the month limit
     private $amount;
-   
 
-    public function __construct($email, $uid, $type, $pass, $month ,$amount) {
+
+    public function __construct($email, $uid, $type, $pass, $month, $amount)
+    {
         $this->email = $email;
         $this->uid = $uid;
         $this->type = $type;
@@ -29,7 +31,8 @@ class Admin extends signUp {
         $this->amount = $amount;
     }
 
-    public function signupUser() {
+    public function signupUser()
+    {
         // Check for empty input
         if ($this->emptyInput() == false) {
             header("location: ../index.php?error=emptyinput");
@@ -149,28 +152,34 @@ class Admin extends signUp {
         }
     }
 
-    private function emptyInput() {
+    private function emptyInput()
+    {
         return !(empty($this->email) || empty($this->uid) || empty($this->type) || empty($this->month) || empty($this->pass));
     }
 
-    private function invalidUid() {
+    private function invalidUid()
+    {
         return preg_match("/^[a-zA-Z0-9]+$/", $this->uid);
     }
 
-    private function invalidEmail() {
+    private function invalidEmail()
+    {
         return filter_var($this->email, FILTER_VALIDATE_EMAIL) !== false;
     }
 
-    private function uidTakenChecker() {
+    private function uidTakenChecker()
+    {
         return $this->checkUser($this->uid, $this->email);
     }
 
-    private function monthLimit() {
+    private function monthLimit()
+    {
         // Check if the month value exceeds the allowed limit
         return $this->month > 0 && $this->month <= $this->monthLimit;
     }
 
-    private function sendOtp() {
+    private function sendOtp()
+    {
         // Generate a random 6-digit OTP
         $otp = rand(100000, 999999);
         $_SESSION['otp'] = $otp; // Store OTP in session
@@ -202,7 +211,8 @@ class Admin extends signUp {
         }
     }
 
-    public function verifyOtp($inputOtp) {
+    public function verifyOtp($inputOtp)
+    {
         // Check if OTP exists in session and is valid
         if (isset($_SESSION['otp']) && $_SESSION['otp'] == $inputOtp) {
             if (time() <= $_SESSION['otp_expiry']) {
@@ -222,4 +232,3 @@ class Admin extends signUp {
         return false; // OTP invalid
     }
 }
-?>
